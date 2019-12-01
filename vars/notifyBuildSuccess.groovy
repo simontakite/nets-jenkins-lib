@@ -4,7 +4,7 @@
  * git repository.
  */
 
-def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-774fc7573c5c@df41dac6-47ab-4982-97ab-60c8af4a7dc0/IncomingWebhook/830ed6b257374b3b8d8e11714d02fa7d/008bd7a8-2a05-43ca-9969-48191de5d673") {
+def call(channel = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-774fc7573c5c@df41dac6-47ab-4982-97ab-60c8af4a7dc0/IncomingWebhook/830ed6b257374b3b8d8e11714d02fa7d/008bd7a8-2a05-43ca-9969-48191de5d673") {
 
     jobName = env.JOB_NAME
     buildName = env.BUILD_DISPLAY_NAME
@@ -32,7 +32,7 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                             "title": "Success",
                             "sections": [
                                 {
-                                    "activityTitle": "**${jobName}** build [${buildName}](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/console) (SUCCEEDED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
+                                    "activityTitle": "**${jobName}** build [${buildName}](http://192.168.33.10:8080/job/${jobBaseName}/${buildNumber}/console) (SUCCEEDED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
                                     "activitySubtitle": "Finished: ${buildDate} Changes by **${gitCommitAuthor}**",
                                     "activityImage": "https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_960_720.png",
                                     "facts": [
@@ -108,7 +108,7 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
         httpRequest httpMode: 'POST',
                 acceptType: 'APPLICATION_JSON',
                 contentType: 'APPLICATION_JSON',
-                url: "${endpoint}",
+                url: "${channel}",
                 requestBody: payload
     }
 }

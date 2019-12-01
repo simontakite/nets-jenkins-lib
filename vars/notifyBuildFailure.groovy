@@ -27,14 +27,14 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                         {
                             "@type": "MessageCard",
                             "@context": "https://schema.org/extensions",
-                            "summary": "success message card",
-                            "themeColor": "32a852",
-                            "title": "Success",
+                            "summary": "Fail message card",
+                            "themeColor": "eb4034",
+                            "title": "SOMETHING WENT WRONG",
                             "sections": [
                                 {
-                                    "activityTitle": "**${jobName}** build [${buildName}](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/console) (SUCCEEDED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
+                                    "activityTitle": "**${jobName}** build [${buildName}](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/console) (FAILED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
                                     "activitySubtitle": "Finished: ${buildDate} Changes by **${gitCommitAuthor}**",
-                                    "activityImage": "https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_960_720.png",
+                                    "activityImage": "https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_960_720.png",
                                     "facts": [
                                         {
                                             "name": "Hash:",
