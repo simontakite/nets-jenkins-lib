@@ -6,5 +6,7 @@
 */
 
 def call() {
-    sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
+    //sh(returnStdout: true, script: "git tag --points-at HEAD").trim()
+    sh "git tag --points-at HEAD"
 }
+return this
