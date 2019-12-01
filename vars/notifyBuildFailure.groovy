@@ -1,28 +1,27 @@
 #!/usr/bin/env groovy
 /*
- * Notify the teams services about the status of a build based from a
+ * Notify the NETS teams services about the status of a build based from a
  * git repository.
  */
 
 def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-774fc7573c5c@df41dac6-47ab-4982-97ab-60c8af4a7dc0/IncomingWebhook/830ed6b257374b3b8d8e11714d02fa7d/008bd7a8-2a05-43ca-9969-48191de5d673") {
 
-    script {
-        def jobName = env.JOB_NAME
-        def buildName = env.BUILD_DISPLAY_NAME
-        def jobBaseName = env.JOB_BASE_NAME
-        def buildNumber = env.BUILD_NUMBER
-        def buildDate = buildDate()
-        def gitCommitAuthor = gitCommitAuthor()
-        def gitCommitHash = gitCommitHash()
-        def gitCommitMessage = gitCommitMessage()
-        def gitRepositoryUrl = gitRepositoryUrl()
-        def gitTag = gitTag()
+    jobName = env.JOB_NAME
+    buildName = env.BUILD_DISPLAY_NAME
+    jobBaseName = env.JOB_BASE_NAME
+    buildNumber = env.BUILD_NUMBER
+    buildDate = buildDate()
+    gitCommitAuthor = gitCommitAuthor()
+    gitCommitHash = gitCommitHash()
+    gitCommitMessage = gitCommitMessage()
+    gitRepositoryUrl = gitRepositoryUrl()
 
-        /*
-        if (gitRepositoryUrl.contains('github.com')) {
-            gitRepositoryUrl = gitRepositoryUrl.replace('.git', '') + "/commit/${env.DOCKER_TAG}"
-        }
-        */
+    /*
+    if (gitRepositoryUrl.contains('github.com')) {
+        gitRepositoryUrl = gitRepositoryUrl.replace('.git', '') + "/commit/${env.DOCKER_TAG}"
+    } */
+
+    script {
 
         def payload = """
                         {
@@ -33,17 +32,17 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                             "title": "Success",
                             "sections": [
                                 {
-                                    "activityTitle": "**${JOB_NAME}** build [${BUILD_DISPLAY_NAME}](http://vm-stbuild-5:9998/job/${JOB_BASE_NAME}/${BUILD_NUMBER}/console) (SUCCEEDED) [Build logs](http://vm-stbuild-5:9998/job/${JOB_BASE_NAME}/${BUILD_NUMBER}/consoleText)",
-                                    "activitySubtitle": "Finished: ${DATE_RUN} Changes by **${GIT_COMMIT_AUTHOR}**",
+                                    "activityTitle": "**${jobName}** build [${buildName}](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/console) (SUCCEEDED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
+                                    "activitySubtitle": "Finished: ${buildDate} Changes by **${gitCommitAuthor}**",
                                     "activityImage": "https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_960_720.png",
                                     "facts": [
                                         {
                                             "name": "Hash:",
-                                            "value": "${GIT_COMMIT_HASH}"
+                                            "value": "${gitCommitHash}"
                                         },
                                         {
                                             "name": "Message:",
-                                            "value": "${GIT_COMMIT_MESSAGE}"
+                                            "value": "${gitCommitMessage}"
                                         },
                                         {
                                             "name": "Branch:",
@@ -59,7 +58,7 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                                     "targets": [
                                         {
                                             "os": "default",
-                                            "uri": "${GIT_URL}"
+                                            "uri": "${gitRepositoryUrl}"
                                         }
                                     ]
                                 },
@@ -69,7 +68,7 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                                     "targets": [
                                         {
                                             "os": "default",
-                                            "uri": "http://192.168.33.10:8080/job/${JOB_NAME}"
+                                            "uri": "http://192.168.33.10:8080/job/${jobName}"
                                         }
                                     ]
                                 },
