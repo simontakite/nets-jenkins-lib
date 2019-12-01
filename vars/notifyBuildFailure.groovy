@@ -29,7 +29,7 @@ def call(endpoint = "https://outlook.office.com/webhook/ffaa6dbe-27b0-4e34-ad59-
                             "@context": "https://schema.org/extensions",
                             "summary": "Fail message card",
                             "themeColor": "eb4034",
-                            "title": "SOMETHING WENT WRONG",
+                            "title": "Something went wrong!",
                             "sections": [
                                 {
                                     "activityTitle": "**${jobName}** build [${buildName}](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/console) (FAILED) [Build logs](http://vm-stbuild-5:9998/job/${jobBaseName}/${buildNumber}/consoleText)",
